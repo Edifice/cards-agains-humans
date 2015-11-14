@@ -3,12 +3,12 @@
 <div class="row">
     <div class="col-xs-6">
         <div class="btn-group hidden-print">
-            <button class="btn btn-default" ng-click="openModal()" ng-if="authData">Create new card</button>
+            <button class="btn btn-default" ng-click="openModal()" ng-disabled="!authData">{{'card.createNew' | translate}}</button>
         </div>
     </div>
     <div class="col-xs-6">
         <div class="btn-group pull-right hidden-print">
-            <button class="btn btn-default" ng-click="openPrintModal()">Print or Save cards</button>
+            <button class="btn btn-default" ng-disabled="filter(cards).length === 0" ng-click="openPrintModal()">{{'card.printOrSave' | translate}}</button>
         </div>
     </div>
 </div>
@@ -16,21 +16,21 @@
 <br class="hidden-print">
 <div class="panel panel-default hidden-print">
     <div class="panel-heading">
-        <h3 class="panel-title">Filter cards</h3>
+        <h3 class="panel-title">{{'card.filterHeader' | translate}}</h3>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-12">
                 <div class="btn-group">
-                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == null]" ng-click="filterCard.type = null">All</button>
-                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == 'black']" ng-click="filterCard.type = 'black'">Black</button>
-                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == 'white']" ng-click="filterCard.type = 'white'">White</button>
+                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == null]" ng-click="filterCard.type = null">{{'card.all' | translate}}</button>
+                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == 'black']" ng-click="filterCard.type = 'black'">{{'card.black' | translate}}</button>
+                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == 'white']" ng-click="filterCard.type = 'white'">{{'card.white' | translate}}</button>
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="checkbox" ng-repeat="tag in filterTags">
                     <label>
-                        <input type="checkbox" value="{{tag.tag}}" ng-model="tag.checked">&nbsp;{{ucfirst(tag.tag)}}
+                        <input type="checkbox" value="{{tag.tag}}" ng-model="tag.checked">&nbsp;{{'card.tags.' + tag.tag | translate}}
                     </label>
                 </div>
             </div>
@@ -43,7 +43,7 @@
 <script type="text/ng-template" id="addCard.html">
     <div id="create-modal">
         <div class="modal-header">
-            <h4 class="modal-title">Create new card</h4>
+            <h4 class="modal-title">{{'card.createNew' | translate}}</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -52,8 +52,8 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="btn-group">
-                        <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[card.type == 'black']" ng-click="card.type = 'black'">Black</button>
-                        <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[card.type == 'white']" ng-click="card.type = 'white'">White</button>
+                        <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[card.type == 'black']" ng-click="card.type = 'black'">{{'card.black' | translate}}</button>
+                        <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[card.type == 'white']" ng-click="card.type = 'white'">{{'card.white' | translate}}</button>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="col-sm-6">
                     <div class="checkbox" ng-repeat="tag in tags">
                         <label>
-                            <input type="checkbox" ng-model="card.tags[tag.$value]">&nbsp;{{ucfirst(tag.$value)}}
+                            <input type="checkbox" ng-model="card.tags[tag.$value]">&nbsp;{{'card.tags.' + tag.tag | translate}}
                         </label>
                     </div>
                 </div>
@@ -73,22 +73,22 @@
             </div>
         </div>
         <div class="modal-footer text-right">
-            <button class="btn btn-primary" type="button" ng-click="addCard()">Create this card</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="addCard()">{{'save' | translate}}</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | translate}}</button>
         </div>
     </div>
 </script>
 <script type="text/ng-template" id="printCards.html">
     <div id="print-modal">
         <div class="modal-header">
-            <h2 class="modal-title">Printing {{cards.length}} cards</h2>
+            <h2 class="modal-title">{{'card.print.header' | translate:'{count: ' + cards.length + '}'}}</h2>
         </div>
         <div class="modal-body">
-            <h3>Printing options</h3>
-            <p class="">This is not so user friendly now. The default options are for printing 4 by 5 cards onto an A4 page. Feel free to play with these settings!</p>
+            <h3>{{'card.print.printingOptions' | translate}}</h3>
+            <p>{{'card.print.comment' | translate}}</p>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Page width (mm)</label>
+                    <label class="col-xs-6 control-label">{{'card.print.pageWidth' | translate}}</label>
                     <div class="col-xs-6">
                         <input class="form-control" type="number" ng-model="opt.page.format[0]" required>
                     </div>
@@ -96,7 +96,7 @@
             </form>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Page height (mm)</label>
+                    <label class="col-xs-6 control-label">{{'card.print.pageHeight' | translate}}</label>
                     <div class="col-xs-6">
                         <input class="form-control" type="number" ng-model="opt.page.format[1]" required>
                     </div>
@@ -104,7 +104,7 @@
             </form>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Page margin (mm)</label>
+                    <label class="col-xs-6 control-label">{{'card.print.pageMargin' | translate}}</label>
                     <div class="col-xs-6">
                         <input class="form-control" type="number" ng-model="opt.margin" required>
                     </div>
@@ -112,7 +112,7 @@
             </form>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Rounded corners (mm)</label>
+                    <label class="col-xs-6 control-label">{{'card.print.roundedCorners' | translate}}</label>
                     <div class="col-xs-6">
                         <input class="form-control" type="number" ng-model="opt.roundedCorner" required>
                     </div>
@@ -120,7 +120,7 @@
             </form>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Card size (mm)</label>
+                    <label class="col-xs-6 control-label">{{'card.print.cardSize' | translate}}</label>
                     <div class="col-xs-6">
                         <input class="form-control" type="number" ng-model="opt.cardSize" required>
                     </div>
@@ -128,7 +128,7 @@
             </form>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Draw card outline</label>
+                    <label class="col-xs-6 control-label">{{'card.print.outline' | translate}}</label>
                     <div class="col-xs-6">
                         <input class="" type="checkbox" ng-model="opt.outline" required>
                     </div>
@@ -136,9 +136,9 @@
             </form>
         </div>
         <div class="modal-footer text-right">
-            <button class="btn btn-primary" type="button" ng-click="print(true)">Save as PDF</button>
-            <button class="btn btn-primary" type="button" ng-click="print()">Print</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="print(true)">{{'card.print.saveAsPdf' | translate}}</button>
+            <button class="btn btn-primary" type="button" ng-click="print()">{{'print' | translate}}</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">{{'cancel' | translate}}</button>
         </div>
     </div>
 </script>

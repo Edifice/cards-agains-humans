@@ -7,21 +7,17 @@
  * A demo of using AngularFire to manage a synchronized list.
  */
 angular.module('cardsAgainstHumansApp')
-    .controller('CardCtrl', function($scope, Ref, Auth, $firebaseArray, $timeout, $uibModal) {
-        $scope.cards = $firebaseArray(Ref.child('cards').limitToLast(10));
-        $scope.tags = $firebaseArray(Ref.child('tags'));
+    .controller('CardCtrl', function($scope, $rootScope, Ref, Auth, $firebaseArray, $timeout, $uibModal) {
+        $scope.cards = $firebaseArray(Ref.child('cards'));
+        $scope.tags = ['mature', 'children', 'political', 'sexual', 'disgusting', 'nerd', 'geek'];
         $scope.card = {};
         $scope.filterTags = [];
-
-        $scope.tags.$loaded(function(tags) {
-            var filterTags = [];
-            tags.forEach(function(tag) {
-                filterTags.push({
-                    tag: tag.$value,
-                    checked: true
-                });
-            })
-            $scope.filterTags = filterTags;
+        
+        $scope.tags.forEach(function(tag) {
+            $scope.filterTags.push({
+                tag: tag,
+                checked: true
+            });
         });
 
         $scope.filterCard = {
@@ -53,6 +49,10 @@ angular.module('cardsAgainstHumansApp')
                     }
                 });
                 if (!matchTag) {
+                    visible = false;
+                }
+
+                if ($rootScope.language !== card.language) {
                     visible = false;
                 }
 
@@ -96,6 +96,7 @@ angular.module('cardsAgainstHumansApp')
                             type: card.type,
                             tags: card.tags,
                             creation: (new Date).toISOString(),
+                            language: $rootScope.language,
                             creator: $scope.authData.uid
                         })
                         // display any errors
@@ -183,7 +184,7 @@ angular.module('cardsAgainstHumansApp')
 
             doc.setFont("times");
             doc.setFontType("bold");
-            
+
             var drawCard = function(type, col, row, text) {
                 if (type === 'white') {
                     doc.setFillColor(255, 255, 255);
@@ -192,7 +193,7 @@ angular.module('cardsAgainstHumansApp')
                     doc.setFillColor(0);
                     doc.setTextColor(255, 255, 255);
                 }
-                doc.rect(opt.margin + (col * opt.cardSize), opt.margin + (row * opt.cardSize), opt.cardSize, opt.cardSize, 'FD');
+                doc.roundedRect(opt.margin + (col * opt.cardSize), opt.margin + (row * opt.cardSize), opt.cardSize, opt.cardSize, opt.roundedCorner, opt.roundedCorner, 'FD');
 
                 doc.setFontSize(18);
                 doc.text(text, opt.margin + opt.cardPadding + (col * opt.cardSize), opt.margin + (opt.cardPadding * 2) + (row * opt.cardSize));

@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular.module('cardsAgainstHumansApp', [
+window.app = angular.module('cardsAgainstHumansApp', [
     'ngCookies',
     'ngRoute',
     'ngSanitize',
@@ -16,5 +16,21 @@ angular.module('cardsAgainstHumansApp', [
     'firebase',
     'firebase.ref',
     'firebase.auth',
+    'pascalprecht.translate',
     'ui.bootstrap'
 ]);
+
+app.config(function($translateProvider) {
+    $translateProvider.preferredLanguage('en');
+});
+
+app.run(function($rootScope, $cookies, $translate) {
+    $rootScope.languages = ['en', 'hu'];
+    $rootScope.language = $cookies.get('lang') || 'en';
+
+    $rootScope.$watch('language', function(key) {
+        $translate.use(key);
+
+        $cookies.put('lang', key, {expires: 'Tue, 19 Jan 2038 03:14:07 UTC'});
+    });
+});
