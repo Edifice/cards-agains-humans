@@ -1,0 +1,144 @@
+<h2>Cards Agains Humans</h2>
+<p class="alert alert-danger" ng-show="err">{{err}}</p>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="btn-group hidden-print">
+            <button class="btn btn-default" ng-click="openModal()" ng-if="authData">Create new card</button>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="btn-group pull-right hidden-print">
+            <button class="btn btn-default" ng-click="openPrintModal()">Print or Save cards</button>
+        </div>
+    </div>
+</div>
+<br class="hidden-print">
+<br class="hidden-print">
+<div class="panel panel-default hidden-print">
+    <div class="panel-heading">
+        <h3 class="panel-title">Filter cards</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="btn-group">
+                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == null]" ng-click="filterCard.type = null">All</button>
+                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == 'black']" ng-click="filterCard.type = 'black'">Black</button>
+                    <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[filterCard.type == 'white']" ng-click="filterCard.type = 'white'">White</button>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="checkbox" ng-repeat="tag in filterTags">
+                    <label>
+                        <input type="checkbox" value="{{tag.tag}}" ng-model="tag.checked">&nbsp;{{ucfirst(tag.tag)}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-container">
+    <div class="card card-{{_card.type}}" ng-repeat="_card in filter(cards)">{{_card.text}}</div>
+</div>
+<script type="text/ng-template" id="addCard.html">
+    <div id="create-modal">
+        <div class="modal-header">
+            <h4 class="modal-title">Create new card</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-7">
+                    <input class="form-control" placeholder="Card text" ng-model="card.text">
+                </div>
+                <div class="col-sm-5">
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[card.type == 'black']" ng-click="card.type = 'black'">Black</button>
+                        <button type="button" class="btn" ng-class="{true: 'btn-default', false: 'btn-primary'}[card.type == 'white']" ng-click="card.type = 'white'">White</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <p>Tags:</p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="checkbox" ng-repeat="tag in tags">
+                        <label>
+                            <input type="checkbox" ng-model="card.tags[tag.$value]">&nbsp;{{ucfirst(tag.$value)}}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="pull-right card card-{{card.type}}">{{card.text}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer text-right">
+            <button class="btn btn-primary" type="button" ng-click="addCard()">Create this card</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="printCards.html">
+    <div id="print-modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Printing {{cards.length}} cards</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Printing options</h3>
+            <p class="">This is not so user friendly now. The default options are for printing 4 by 5 cards onto an A4 page. Feel free to play with these settings!</p>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Page width (mm)</label>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="number" ng-model="opt.page.format[0]" required>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Page height (mm)</label>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="number" ng-model="opt.page.format[1]" required>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Page margin (mm)</label>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="number" ng-model="opt.margin" required>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Rounded corners (mm)</label>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="number" ng-model="opt.roundedCorner" required>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Card size (mm)</label>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="number" ng-model="opt.cardSize" required>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Draw card outline</label>
+                    <div class="col-xs-6">
+                        <input class="" type="checkbox" ng-model="opt.outline" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer text-right">
+            <button class="btn btn-primary" type="button" ng-click="print(true)">Save as PDF</button>
+            <button class="btn btn-primary" type="button" ng-click="print()">Print</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</script>

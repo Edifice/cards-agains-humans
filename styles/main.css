@@ -1,0 +1,87 @@
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+body {
+    padding: 0;
+}
+
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+
+.header,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* Make the masthead heading the same height as the navigation */
+
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+.card {
+    width: 8em;
+    height: 8em;
+    font-size: 26.7px;
+    padding: 0.75em;
+    float: left;
+    margin: .5em .5em .5em 0;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.3)
+}
+
+.card.card-black{
+    background: #222 !important;
+    color: #fff !important;
+    border-color: #fff;
+}
+
+.card.card-white{
+    background: #fff !important;
+    color: #222 !important;
+    border-color: #222;
+}
+
+@media print{
+    .card{
+        border-width: 1px;
+        border-style: solid;
+    }
+}
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    .header,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+@page {
+    margin: 1cm;
+}
