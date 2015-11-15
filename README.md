@@ -3,24 +3,23 @@
 This project is about to provide a place, where people can create custom decks of Cards Against Humanity card game.
 It's still under development, so it's not secure, not fully featured, so don't be angry if something doesn't work.
 
-## Progress
-:black_square_button: Login system
-:black_square_button: Connect with Firebase
-:black_square_button: List cards
-:black_square_button: Filter cards
-:black_square_button: Create card
-:black_square_button: Print cards
-:black_square_button: Custom printing options
-:black_square_button: Save as PDF function
-:black_square_button: outline/cutting mark option for printing
-:black_square_button: translatable pages
-:black_square_button: Hungarian translation
-:black_large_square: Game rules into PDF
-:black_large_square: Home page
-:black_large_square: Reporting incorrect cards
-:black_large_square: Card rating system
-:black_large_square: Game logo into PDF
-:black_large_square: Nice page loading animation
-:black_large_square: Nice page design
-:black_large_square: Tests
-:black_large_square: Support options (paypal, bitcoin, anything)
+## Progress- [x] Login system
+- [x] Connect with Firebase
+- [x] List cards
+- [x] Filter cards
+- [x] Create card
+- [x] Print cards
+- [x] Custom printing options
+- [x] Save as PDF function
+- [x] outline/cutting mark option for printing
+- [x] translatable pages
+- [x] Hungarian translation
+- [ ] Game rules into PDF
+- [ ] Home page
+- [ ] Reporting incorrect cards
+- [ ] Card rating system
+- [ ] Game logo into PDF
+- [ ] Nice page loading animation
+- [ ] Nice page design
+- [ ] Tests
+- [ ] Support options (paypal, bitcoin, anything)
