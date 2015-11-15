@@ -3,7 +3,8 @@
 This project is about to provide a place, where people can create custom decks of Cards Against Humanity card game.
 It's still under development, so it's not secure, not fully featured, so don't be angry if something doesn't work.
 
-## Progress- [x] Login system
+## Progress
+- [x] Login system
 - [x] Connect with Firebase
 - [x] List cards
 - [x] Filter cards
